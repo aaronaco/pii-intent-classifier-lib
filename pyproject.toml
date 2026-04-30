@@ -1,13 +1,27 @@
 [project]
 name = "pii-intent-classifier-lib"
 version = "0.1.0"
-description = "Add your description here"
+description = "A Python library that uses the Roblox PII Classifier model to detect PII-related intent in text."
 readme = "README.md"
 requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [
+    { name = "aaronaco" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Security",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
 dependencies = [
     "torch>=2.11.0",
     "transformers>=5.7.0",
 ]
+
+[project.urls]
+Repository = "https://github.com/aaronaco/pii-intent-classifier-lib"
 
 [dependency-groups]
 dev = [
@@ -21,9 +35,3 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pii_intent_classifier"]
-
-[tool.uv.workspace]
-members = [
-    "install_test_sandbox",
-    ".",
-]
