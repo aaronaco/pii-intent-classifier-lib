@@ -36,7 +36,7 @@ def preprocess_input(
         for i, item in enumerate(input_data):
             if not isinstance(item, dict):
                 raise TypeError(f"Item at index {i} must be a dictionary")
-            
+
             msg = item
             if "content" not in msg:
                 raise ValueError(

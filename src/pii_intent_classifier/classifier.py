@@ -139,7 +139,9 @@ class PIIIntentClassifier:
         )
 
     def is_flagged(
-        self, input_data: str | list[str] | list[dict[str, str]], **threshold_kwargs: Any
+        self,
+        input_data: str | list[str] | list[dict[str, str]],
+        **threshold_kwargs: Any,
     ) -> bool | list[bool]:
         """Convenience wrapper around classify() returning bool(s)."""
         result = self.classify(input_data, **threshold_kwargs)
