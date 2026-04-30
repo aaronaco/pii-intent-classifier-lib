@@ -1,6 +1,6 @@
 [project]
 name = "pii-intent-classifier-lib"
-version = "0.1.0"
+version = "0.1.1"
 description = "A Python library that uses the Roblox PII Classifier model to detect PII-related intent in text."
 readme = "README.md"
 requires-python = ">=3.12"
