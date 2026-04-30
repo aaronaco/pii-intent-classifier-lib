@@ -51,6 +51,6 @@ def test_preprocess_errors():
 
     with pytest.raises(
         TypeError,
-        match="Input list must contain either all strings or all dictionaries",
+        match="Item at index 1 must be a string",
     ):
         preprocess_input(["string", {"content": "dict"}])
