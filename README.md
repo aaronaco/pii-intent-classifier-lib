@@ -1,4 +1,4 @@
-# PII Intent Classifier Library
+# pii-intent-classifier
 
 [![Hugging Face Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue)](https://huggingface.co/Roblox/roblox-pii-classifier)
 [![License: MIT](https://img.shields.io/badge/Code%20License-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -173,35 +173,37 @@ Contributions are welcome! This project uses [`uv`](https://github.com/astral-sh
 ### Local Setup
 
 1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/aaronaco/pii-intent-classifier-lib.git
-   cd pii-intent-classifier-lib
-   ```
+
+    ```bash
+    git clone https://github.com/aaronaco/pii-intent-classifier-lib.git
+    cd pii-intent-classifier-lib
+    ```
 
 2. **Sync the environment:**
    `uv` provides a one-step setup. Running `sync` will automatically download the required Python version (>=3.12), create a virtual environment, install all dependencies (including development tools like `pytest` and `ruff`), and install the library in editable mode.
-   ```bash
-   uv sync
-   ```
-   _Note: The `uv.lock` file is committed to the repository to ensure all contributors and CI environments use the exact same dependency versions._
+    ```bash
+    uv sync
+    ```
+    _Note: The `uv.lock` file is committed to the repository to ensure all contributors and CI environments use the exact same dependency versions._
 
 ### Testing
 
 The project uses a two-tier testing strategy. All tests are executed via `uv run` to ensure they run within the project's managed environment.
 
 - **Tier 1 (Logic Tests):** Fast tests that mock the transformer model.
-  ```bash
-  # Windows (PowerShell)
-  $env:SKIP_HEAVY='true'; uv run pytest
 
-  # Linux/macOS/Bash
-  SKIP_HEAVY=true uv run pytest
-  ```
+    ```bash
+    # Windows (PowerShell)
+    $env:SKIP_HEAVY='true'; uv run pytest
+
+    # Linux/macOS/Bash
+    SKIP_HEAVY=true uv run pytest
+    ```
 
 - **Tier 2 (Full Suite):** End-to-end tests using the actual model weights (~1.2GB).
-  ```bash
-  uv run pytest
-  ```
+    ```bash
+    uv run pytest
+    ```
 
 ### Linting & Formatting
 

@@ -26,6 +26,7 @@ class PIIIntentClassifier:
         threshold: float | None = None,
         asking_threshold: float = DEFAULT_ASKING_THRESHOLD,
         giving_threshold: float = DEFAULT_GIVING_THRESHOLD,
+        token: str | bool | None = None,
     ):
         """
         Initialize the classifier.
@@ -35,6 +36,7 @@ class PIIIntentClassifier:
             threshold: Global threshold override for both categories.
             asking_threshold: Threshold for privacy_asking_for_pii.
             giving_threshold: Threshold for privacy_giving_pii.
+            token: Hugging Face token for gated models.
         """
         if device == "auto":
             self.device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -49,9 +51,9 @@ class PIIIntentClassifier:
         )
 
         try:
-            self.tokenizer = AutoTokenizer.from_pretrained(self.MODEL_ID)
+            self.tokenizer = AutoTokenizer.from_pretrained(self.MODEL_ID, token=token)
             self.model = AutoModelForSequenceClassification.from_pretrained(
-                self.MODEL_ID
+                self.MODEL_ID, token=token
             )
             self.model.to(self.device)
             self.model.eval()
@@ -59,7 +61,7 @@ class PIIIntentClassifier:
             raise PIIIntentClassifierError(
                 f"Failed to load Roblox PII Classifier model from Hugging Face: {str(e)}\n"
                 "Likely causes:\n"
-                "1. Hugging Face contact info agreement not accepted. Visit: https://huggingface.co/Roblox/roblox-pii-classifier\n"
+                "1. Hugging Face contact info agreement not accepted or token missing/invalid. Visit: https://huggingface.co/Roblox/roblox-pii-classifier\n"
                 "2. No internet connection.\n"
                 "3. Insufficient disk space or memory."
             ) from e
