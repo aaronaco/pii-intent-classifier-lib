@@ -1,7 +1,7 @@
 import warnings
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
-from typing import List, Dict, Union, Optional, Any
+from typing import Any
 
 from .result import ClassificationResult
 from .preprocessor import preprocess_input
@@ -23,7 +23,7 @@ class PIIIntentClassifier:
     def __init__(
         self,
         device: str = "auto",
-        threshold: Optional[float] = None,
+        threshold: float | None = None,
         asking_threshold: float = DEFAULT_ASKING_THRESHOLD,
         giving_threshold: float = DEFAULT_GIVING_THRESHOLD,
     ):
@@ -74,11 +74,11 @@ class PIIIntentClassifier:
 
     def classify(
         self,
-        input_data: Union[str, List[str], List[Dict[str, str]]],
-        threshold: Optional[float] = None,
-        asking_threshold: Optional[float] = None,
-        giving_threshold: Optional[float] = None,
-    ) -> Union[ClassificationResult, List[ClassificationResult]]:
+        input_data: str | list[str] | list[dict[str, str]],
+        threshold: float | None = None,
+        asking_threshold: float | None = None,
+        giving_threshold: float | None = None,
+    ) -> ClassificationResult | list[ClassificationResult]:
         """
         Classifies the input text for PII intent.
 
@@ -113,6 +113,8 @@ class PIIIntentClassifier:
         )
 
         if input_type == "batch":
+            # normalized_input is list[str] when input_type is "batch"
+            assert isinstance(normalized_input, list)
             results = []
             for text in normalized_input:
                 results.append(
@@ -126,6 +128,8 @@ class PIIIntentClassifier:
                 )
             return results
 
+        # normalized_input is str when input_type is not "batch"
+        assert isinstance(normalized_input, str)
         return self._run_inference(
             normalized_input,
             input_type,
@@ -135,8 +139,8 @@ class PIIIntentClassifier:
         )
 
     def is_flagged(
-        self, input_data: Any, **threshold_kwargs
-    ) -> Union[bool, List[bool]]:
+        self, input_data: str | list[str] | list[dict[str, str]], **threshold_kwargs: Any
+    ) -> bool | list[bool]:
         """Convenience wrapper around classify() returning bool(s)."""
         result = self.classify(input_data, **threshold_kwargs)
         if isinstance(result, list):
@@ -147,7 +151,7 @@ class PIIIntentClassifier:
         self,
         text: str,
         input_type: str,
-        message_count: Optional[int],
+        message_count: int | None,
         asking_threshold: float,
         giving_threshold: float,
     ) -> ClassificationResult:

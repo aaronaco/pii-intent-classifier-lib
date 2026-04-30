@@ -1,9 +1,6 @@
-from typing import List, Dict, Union, Tuple
-
-
 def preprocess_input(
-    input_data: Union[str, List[str], List[Dict[str, str]]],
-) -> Tuple[Union[str, List[str]], str, Union[int, None]]:
+    input_data: str | list[str] | list[dict[str, str]],
+) -> tuple[str | list[str], str, int | None]:
     """
     Normalizes input data for the classifier.
 
@@ -24,19 +21,31 @@ def preprocess_input(
     if not input_data:
         return [], "batch", 0
 
-    if all(isinstance(item, str) for item in input_data):
-        return input_data, "batch", None
+    first_item = input_data[0]
 
-    if all(isinstance(item, dict) for item in input_data):
-        message_contents = []
-        for i, msg in enumerate(input_data):
+    if isinstance(first_item, str):
+        str_list: list[str] = []
+        for i, item in enumerate(input_data):
+            if not isinstance(item, str):
+                raise TypeError(f"Item at index {i} must be a string")
+            str_list.append(item)
+        return str_list, "batch", None
+
+    if isinstance(first_item, dict):
+        message_contents: list[str] = []
+        for i, item in enumerate(input_data):
+            if not isinstance(item, dict):
+                raise TypeError(f"Item at index {i} must be a dictionary")
+            
+            msg = item
             if "content" not in msg:
                 raise ValueError(
                     f"Message at index {i} is missing required 'content' key"
                 )
-            if not isinstance(msg["content"], str):
+            content = msg["content"]
+            if not isinstance(content, str):
                 raise TypeError(f"Message content at index {i} must be a string")
-            message_contents.append(msg["content"])
+            message_contents.append(content)
 
         normalized_str = "\n".join(message_contents)
         return normalized_str, "message_array", len(input_data)
