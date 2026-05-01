@@ -1,10 +1,12 @@
 # pii-intent-classifier
 
-[![Hugging Face Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue)](https://huggingface.co/Roblox/roblox-pii-classifier)
-[![License: MIT](https://img.shields.io/badge/Code%20License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Model License: Apache 2.0](https://img.shields.io/badge/Model%20License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Hugging Face Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue)](https://huggingface.co/Roblox/roblox-pii-classifier) [![Hugging Face Space](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/aaronaco/pii-intent-classifier-lib-demo) [![License: MIT](https://img.shields.io/badge/Code%20License-MIT-green.svg)](https://opensource.org/licenses/MIT) [![Model License: Apache 2.0](https://img.shields.io/badge/Model%20License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 
 A Python library that uses the Roblox PII Classifier model to detect Personally Identifiable Information (PII) solicitation and disclosure intent in text.
+
+The model runs entirely on your machine. No data ever leaves your environment.
+
+**[Try the live demo →](https://huggingface.co/spaces/aaronaco/pii-intent-classifier-lib-demo)**
 
 ## Overview
 
